@@ -1,0 +1,401 @@
+/* --- CONTAINER CHÍNH & LOADING --- */
+.pageContainer {
+    background-color: var(--bg-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.loadingContainer {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 0 0 16px 0;
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    background: white;
+}
+
+.mainContent {
+    display: flex;
+    gap: 16px;
+    padding: 0 16px 16px 16px;
+}
+
+.sectionTitle {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 0 0 16px 0;
+}
+
+/* --- THÔNG TIN KHÓA HỌC --- */
+.courseInfoSection {
+    flex: 1;
+    background: var(--bg-white);
+    padding: 16px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.infoItem p {
+    margin: 0;
+}
+
+.infoItem svg {
+    color: var(--primary-color);
+}
+
+/* --- KHỐI THỐNG KÊ --- */
+.summarySection {
+    display: flex;
+    gap: 16px;
+}
+
+.summaryBox {
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.summaryTitle {
+    font-weight: 700;
+    padding: 12px 16px;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.summaryContent {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+}
+
+.summaryItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    text-align: center;
+}
+
+.summaryValue {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1.1;
+}
+
+.summaryLabel {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+/* --- THANH HÀNH ĐỘNG & CHÚ THÍCH --- */
+.actionBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+}
+
+.legendContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.legendItem {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.legendItem>div {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
+
+.legendPresent {
+    background: var(--green-light);
+    border: 1px solid var(--green);
+}
+
+.legendAbsentK {
+    background: var(--red-light);
+    border: 1px solid var(--red);
+}
+
+.legendAbsentP {
+    background: var(--yellow-light);
+    border: 1px solid var(--yellow);
+}
+
+.exportButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.exportButton:hover {
+    background-color: #004a80;
+    /* Darker shade of primary */
+}
+
+.exportButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- BẢNG CHI TIẾT --- */
+.tableContainer {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    margin: 0 16px;
+}
+
+.tableHeader,
+.tableRow {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tableContainer .tableBody .tableRow:last-child {
+    border-bottom: none;
+}
+
+.tableHeader {
+    background-color: var(--bg-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.tableHeader>.tableCell {
+    font-weight: 700;
+}
+
+.tableRow {
+    transition: background-color 0.2s;
+}
+
+.tableRow:hover {
+    background-color: var(--primary-light) !important;
+    /* Use important to override status colors */
+}
+
+.tableCell {
+    padding: 12px 12px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.tableCell:nth-last-child(1) {
+    padding: 0 12px;
+}
+
+/* Row status colors */
+.rowPresent {
+    background-color: var(--green-light);
+}
+
+.rowAbsentK {
+    background-color: var(--red-light);
+}
+
+.rowAbsentP {
+    background-color: var(--yellow-light);
+}
+
+.chip {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: white;
+}
+
+.chipGreen {
+    background-color: var(--green);
+}
+
+.chipRed {
+    background-color: var(--red);
+}
+
+.actionIcons {
+    display: flex;
+    gap: 12px;
+}
+
+.actionIcons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    color: var(--text-light);
+}
+
+.actionIcons button:hover {
+    background-color: var(--border-color);
+    color: var(--primary-color);
+}
+
+/* --- POPUP CONTENT --- */
+.popupContent {
+    padding: 16px 24px 24px 24px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.commentList {
+    list-style-type: '• ';
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--text-secondary);
+}
+
+.imageGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.popupImage {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.popupImage:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
+}
+
+
+/* --- RESPONSIVE DESIGN --- */
+
+/* Tablet view */
+@media (max-width: 1200px) {
+    .mainContent {
+        flex-direction: column;
+    }
+
+    .summarySection {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}
+
+/* Mobile-large view */
+@media (max-width: 980px) {
+
+    .pageTitle {
+        font-size: 18px;
+    }
+
+    .actionBar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .tableContainer {
+        overflow-x: auto;
+        /* Enable horizontal scroll for table on small screens */
+    }
+
+    .tableHeader,
+    .tableRow {
+        min-width: 800px;
+        /* Force table to be wide */
+    }
+}
+
+/* Mobile view */
+@media (max-width: 560px) {
+    .summarySection {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .summaryBox {
+        width: 100%;
+    }
+
+    .summaryContent {
+        justify-content: space-around;
+        /* Make items spread out */
+    }
+
+    .exportButton span {
+        display: none;
+        /* Hide text, only show icon */
+    }
+
+    .exportButton {
+        padding: 10px;
+        border-radius: 50%;
+    }
+}

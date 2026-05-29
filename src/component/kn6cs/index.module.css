@@ -1,0 +1,18 @@
+.bg{
+  background-image: url(https://lh3.googleusercontent.com/d/124CCFp5Ths4Kc3todjGuHNV-frMbqJDc);
+  background-position: center;
+  background-size: cover;
+  width: 70%;
+  margin: 0 auto;
+  aspect-ratio: 2.7/2.2;
+}
+
+.kn6cs{
+  background-color: var(--main);
+}
+
+.wrap{
+  padding: 80px 0;
+  width: 80%;
+  margin: 0 auto;
+}

@@ -1,0 +1,23 @@
+.v1 {
+  width: 90%;
+  aspect-ratio: 5.825 / 3;
+  background-image: url(https://lh3.googleusercontent.com/d/17rOM3WbnGE7gO1faDPr41CcdR1eW6oqA);
+  background-size: cover;
+  background-position: center;
+}
+
+.v2{
+  width: 90%;
+  aspect-ratio: 5.825 / 3;
+  background-image: url(https://lh3.googleusercontent.com/d/118McqDxpdne2_GxeTznAaLUfZJfPwiY3);
+  background-size: cover;
+  background-position: center;
+}
+
+.v3{
+  width: 90%;
+  aspect-ratio: 5.825 / 3;
+  background-image: url(https://lh3.googleusercontent.com/d/1c1sLRk8_ZyDwnqRuZsdI3ldJFYfWYaOq);
+  background-size: cover;
+  background-position: center;
+}

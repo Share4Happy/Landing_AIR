@@ -1,0 +1,30 @@
+.banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  aspect-ratio: 16/6;
+}
+
+.wrap {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/6;
+  background-image: url(https://lh3.googleusercontent.com/d/1nPtFjE0ADzQpn5YzZu0bGIMJ1Wfcxwog);
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-width: 48em) and (max-width: 64em) {
+  .wrap {
+    height: 100vh;
+    background-image: url(https://lh3.googleusercontent.com/d/1RDQipomCGY8sE08p7uy2CIjCCz4nPxB5);
+  }
+}
+
+@media (max-width: 48em) {
+  .wrap {
+    height: 100vh;
+    background-image: url(https://lh3.googleusercontent.com/d/1RDQipomCGY8sE08p7uy2CIjCCz4nPxB5);
+  }
+}

@@ -1,0 +1,45 @@
+.signal {
+  width: 100%;
+  height: 700px;
+  padding: 30px 0;
+  background-image: url(https://lh3.googleusercontent.com/d/14_aPS-OaiTJ26sIE2_fbfR26DXGvyMey);
+  background-size: cover;
+}
+
+@media (max-width: 888px) {
+  .signal {
+    height: 1600px;
+  }
+}
+
+.signalbg {
+  background-color: #1565c0;
+  height: 300px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+}
+
+.items img {
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.10), 0px 41px 89px 0px rgba(0, 0, 0, 0.10);
+}
+
+.title{
+  padding: 60px 0;
+  width: 80%;
+  margin: 0 auto;
+}

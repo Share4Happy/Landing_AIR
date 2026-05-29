@@ -1,0 +1,36 @@
+.logo {
+  background-image: url(https://lh3.googleusercontent.com/d/1TPhL718l_ESFbe11-xVkFZLsKADv40UB);
+  background-size: cover;
+  background-position: center;
+  width: 70%;
+  aspect-ratio: 1;
+}
+
+.footer {
+  padding: 50px 0 20px 0;
+  background-color: var(--main);
+  margin-top: 50px;
+}
+
+.contact {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.contact a {
+  width: 35px;
+  height: 35px;
+  color: white;
+}
+
+@media (max-width: 982px) {
+  .contact a {
+    width: 45px;
+    height: 45px;
+    color: white;
+  }
+  .contact{
+    padding-bottom: 50px;
+  }
+}

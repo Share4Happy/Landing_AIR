@@ -1,0 +1,17 @@
+.button {
+  position: fixed;
+  bottom: 95px;
+  right: 35px;
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  background: #4d53e8;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: all .2s linear;
+  cursor: pointer;
+  color: white;
+}
+
+.button:hover {
+  transform: scale(1.15);
+}
