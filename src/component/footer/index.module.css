@@ -1,15 +1,47 @@
-.logo {
-  background-image: url(https://lh3.googleusercontent.com/d/1TPhL718l_ESFbe11-xVkFZLsKADv40UB);
-  background-size: cover;
-  background-position: center;
-  width: 70%;
-  aspect-ratio: 1;
-}
-
 .footer {
   padding: 50px 0 20px 0;
   background-color: var(--main);
   margin-top: 50px;
+}
+
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logoCol {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  background-image: url(/images/footer/logo-lhu.png);
+  background-size: cover;
+  background-position: center;
+  width: 140px;
+  height: 140px;
+  aspect-ratio: 1;
+}
+
+.infoCol {
+  flex: 2;
+  display: flex;
+  align-items: flex-start;
+}
+
+.contactCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .contact {
@@ -22,15 +54,33 @@
   width: 35px;
   height: 35px;
   color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
 }
 
-@media (max-width: 982px) {
+.contact a:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 868px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .infoCol {
+    text-align: center;
+  }
+
   .contact a {
     width: 45px;
     height: 45px;
-    color: white;
   }
-  .contact{
-    padding-bottom: 50px;
+
+  .contact {
+    padding-bottom: 30px;
   }
 }

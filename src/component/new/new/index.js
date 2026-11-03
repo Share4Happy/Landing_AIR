@@ -33,10 +33,42 @@ const buttonStyle = {
   cursor: 'pointer',
 };
 
+const fallbackArticles = [
+  {
+    title: { rendered: 'Khám phá thế giới AI & Robotics cho thế hệ tương lai' },
+    excerpt: { rendered: 'Chương trình đào tạo giúp học sinh tiếp cận sớm với tư duy lập trình và chế tạo robot thông minh.' },
+    date: '2024-05-15',
+    link: '#',
+    image: '/images/news/news-3.png',
+  },
+  {
+    title: { rendered: 'Ứng dụng Trí tuệ nhân tạo và Tự động hóa trong giáo dục STEM' },
+    excerpt: { rendered: 'Phát triển tư duy sáng tạo, kỹ năng giải quyết vấn đề thông qua các dự án robot thực tế.' },
+    date: '2024-06-20',
+    link: '#',
+    image: '/images/news/news-6.png',
+  },
+  {
+    title: { rendered: 'Ngày hội trải nghiệm công nghệ AI Robotic' },
+    excerpt: { rendered: 'Sân chơi khoa học công nghệ hấp dẫn với nhiều hoạt động trải nghiệm robot tương tác trực tiếp.' },
+    date: '2024-07-10',
+    link: '#',
+    image: '/images/news/news-1.png',
+  },
+];
+
 const Article = memo(({ article }) => {
   const imageUrl = article['_embedded']?.['wp:featuredmedia']?.[0]?.['media_details']?.['file']
     ? `https://s4h.edu.vn/wp-content/uploads/${article['_embedded']['wp:featuredmedia'][0]['media_details']['file']}`
-    : '';
+    : (article.image || '/images/news/news-3.png');
+
+  const rawTitle = typeof article?.title === 'object' ? (article.title?.rendered || '') : (article?.title || '');
+  const cleanTitle = rawTitle.replace(/<[^>]+>/g, '').replaceAll('&#8211;', '-').replaceAll('&amp;', '&');
+
+  const rawExcerpt = typeof article?.excerpt === 'object' ? (article.excerpt?.rendered || '') : (article?.excerpt || '');
+  const cleanExcerpt = rawExcerpt.replace(/<[^>]+>/g, '').replaceAll('&#8211;', '-').replaceAll('&amp;', '&');
+
+  const dateStr = article?.date ? new Date(article.date).toLocaleDateString('vi-VN') : '';
 
   return (
     <div style={{ padding: '10px' }}>
@@ -59,11 +91,13 @@ const Article = memo(({ article }) => {
               textAlign: 'start',
             }}
           >
-            {article['title']['rendered'].replaceAll('&#8211;', '-')}
+            {cleanTitle}
           </h3>
-          <p className="text_4_m" style={{ textAlign: 'start', margin: 10 }}>
-            Ngày đăng: {new Date(article.date).toLocaleDateString('vi-VN')}
-          </p>
+          {dateStr && (
+            <p className="text_4_m" style={{ textAlign: 'start', margin: 10 }}>
+              Ngày đăng: {dateStr}
+            </p>
+          )}
           <p
             className="text_3_m"
             style={{
@@ -75,15 +109,14 @@ const Article = memo(({ article }) => {
               textAlign: 'start',
             }}
           >
-            {article['excerpt']['rendered'].slice(3).replaceAll('&#8211;', '-')}
+            {cleanExcerpt}
           </p>
           <a
             className="text_3_m"
-            href={article.link}
+            href={article?.link || '#'}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Xem thêm chi tiết về bài viết ${article['title']['rendered'].replaceAll('&#8211;', '-')}`}
-            
+            aria-label={`Xem thêm chi tiết về bài viết ${cleanTitle}`}
           >
             <div style={buttonStyle}>
               Xem thêm
@@ -96,20 +129,29 @@ const Article = memo(({ article }) => {
 });
 
 export default function Neww() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(fallbackArticles);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
-        const response = await fetch('https://s4h.edu.vn/wp-json/wp/v2/posts?_embed');
+        const response = await fetch('https://s4h.edu.vn/wp-json/wp/v2/posts?_embed', {
+          headers: { Accept: 'application/json' },
+        });
+        if (!response.ok) return;
         const jsonData = await response.json();
-        setData(jsonData);
+        if (isMounted && Array.isArray(jsonData) && jsonData.length > 0) {
+          setData(jsonData);
+        }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // Fallback articles are already shown when fetch fails
       }
     };
 
     fetchData();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
@@ -135,15 +177,11 @@ export default function Neww() {
           slideLabelMessage: 'Slide {index} of {total}',
         }}
       >
-        {data.length > 0 ? (
-          data.map((article, index) => (
-            <SwiperSlide key={index}>
-              <Article article={article} />
-            </SwiperSlide>
-          ))
-        ) : (
-          <p>Đang tải dữ liệu...</p>
-        )}
+        {data.map((article, index) => (
+          <SwiperSlide key={index}>
+            <Article article={article} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

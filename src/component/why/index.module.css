@@ -1,23 +1,79 @@
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.rowReverse {
+  flex-direction: row-reverse;
+}
+
+.imgCol {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.textCol {
+  flex: 1;
+  padding: 12px 0;
+}
+
 .v1 {
   width: 90%;
   aspect-ratio: 5.825 / 3;
-  background-image: url(https://lh3.googleusercontent.com/d/17rOM3WbnGE7gO1faDPr41CcdR1eW6oqA);
+  background-image: url(/images/why/why-v1.png);
   background-size: cover;
   background-position: center;
+  border-radius: 8px;
 }
 
-.v2{
+.v2 {
   width: 90%;
   aspect-ratio: 5.825 / 3;
-  background-image: url(https://lh3.googleusercontent.com/d/118McqDxpdne2_GxeTznAaLUfZJfPwiY3);
+  background-image: url(/images/why/why-v2.png);
   background-size: cover;
   background-position: center;
+  border-radius: 8px;
 }
 
-.v3{
+.v3 {
   width: 90%;
   aspect-ratio: 5.825 / 3;
-  background-image: url(https://lh3.googleusercontent.com/d/1c1sLRk8_ZyDwnqRuZsdI3ldJFYfWYaOq);
+  background-image: url(/images/why/why-v3.png);
   background-size: cover;
   background-position: center;
+  border-radius: 8px;
+}
+
+@media (max-width: 868px) {
+  .container {
+    width: 100%;
+    gap: 28px;
+  }
+
+  .row, .rowReverse {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .v1, .v2, .v3 {
+    width: 100%;
+  }
+
+  .textCol {
+    padding: 0;
+  }
 }

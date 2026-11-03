@@ -4,27 +4,28 @@
   justify-content: center;
   height: auto;
   aspect-ratio: 16/6;
+  overflow: hidden;
 }
 
 .wrap {
   width: 100%;
-  height: auto;
+  height: 100%;
   aspect-ratio: 16/6;
-  background-image: url(https://lh3.googleusercontent.com/d/1nPtFjE0ADzQpn5YzZu0bGIMJ1Wfcxwog);
+  background-image: url(/images/banner/banner-desktop.jpg);
   background-size: cover;
   background-position: center;
 }
 
-@media (min-width: 48em) and (max-width: 64em) {
-  .wrap {
+@media (max-width: 64em) {
+  .banner {
     height: 100vh;
-    background-image: url(https://lh3.googleusercontent.com/d/1RDQipomCGY8sE08p7uy2CIjCCz4nPxB5);
+    height: 100dvh;
+    aspect-ratio: unset;
   }
-}
 
-@media (max-width: 48em) {
   .wrap {
-    height: 100vh;
-    background-image: url(https://lh3.googleusercontent.com/d/1RDQipomCGY8sE08p7uy2CIjCCz4nPxB5);
+    height: 100%;
+    aspect-ratio: unset;
+    background-image: url(/images/banner/banner-mobile.jpg);
   }
 }

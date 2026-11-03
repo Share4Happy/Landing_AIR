@@ -1,87 +1,151 @@
 'use client';
 import { useState, memo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import vam from './index.module.css';
+import { FadeIn } from '@/component/motion';
+
 const wrapperStyle = {
-  padding: '20px 0',
-  background: 'var(--main)',
-  borderRadius: 8,
+  padding: '18px 24px',
+  background: 'linear-gradient(135deg, #1565c0 0%, #0d47a1 100%)',
+  borderRadius: 10,
   color: 'white',
-  textAlign: 'center',
   cursor: 'pointer',
-  margin: '20px 0'
+  margin: '18px 0 10px 0',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  userSelect: 'none',
+  transition: 'box-shadow 0.3s ease',
 };
 
 const courseListStyle = {
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
-  padding: '30px 0',
+  gap: 16,
+  padding: '16px 0 24px 0',
 };
 
 const Course = memo(({ data, ariaLabel }) => (
-  <div style={courseListStyle}>
+  <motion.div
+    style={courseListStyle}
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    variants={{
+      hidden: { opacity: 0, height: 0 },
+      visible: {
+        opacity: 1,
+        height: 'auto',
+        transition: {
+          staggerChildren: 0.1,
+          duration: 0.4,
+          ease: [0.22, 1, 0.36, 1],
+        },
+      },
+      exit: {
+        opacity: 0,
+        height: 0,
+        transition: { duration: 0.25 },
+      },
+    }}
+  >
     {data.map((item, index) => (
-      <a target="_blank" href={item.link} key={index} aria-label={ariaLabel} rel="noopener noreferrer">
+      <motion.a
+        target="_blank"
+        href={item.link}
+        key={index}
+        aria-label={ariaLabel}
+        rel="noopener noreferrer"
+        variants={{
+          hidden: { opacity: 0, y: 15 },
+          visible: { opacity: 1, y: 0 },
+        }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.25 }}
+        style={{ display: 'block', borderRadius: 10, overflow: 'hidden' }}
+      >
         <div className={vam.img} style={{ backgroundImage: `url(${item.imgSrc})` }}></div>
-      </a>
+      </motion.a>
     ))}
-  </div>
+  </motion.div>
 ));
 
 export default function Map() {
   const [activeTab, setActiveTab] = useState('c1');
 
+  const tabs = [
+    { id: 'c1', title: 'Các khóa học dành cho học sinh Tiểu học', data: courseData.c1, label: 'Khóa cấp 1' },
+    { id: 'c2', title: 'Các khóa học dành cho học sinh Trung học', data: courseData.c2, label: 'Khóa cấp 2' },
+    { id: 'c3', title: 'Các khóa học dành cho học sinh Trung học phổ thông', data: courseData.c3, label: 'Khóa cấp 3' },
+  ];
+
   return (
-    <div style={{ width: '80%', margin: '30px auto' }}>
-      <div
-        className={vam.wrap}
-        style={wrapperStyle}
-        onClick={() => setActiveTab('c1')}
-      >
-        <p className="text_1" style={{color: 'white'}}>Các khóa học dành cho học sinh Tiểu học</p>
-      </div>
-      {activeTab === 'c1' && <Course data={courseData.c1} ariaLabel="Khóa cấp 1" />}
-
-      <div
-        className={vam.wrap}
-        style={wrapperStyle}
-        onClick={() => setActiveTab('c2')}
-      >
-        <p className="text_1" style={{color: 'white'}}>Các khóa học dành cho học sinh Trung học</p>
-      </div>
-      {activeTab === 'c2' && <Course data={courseData.c2} ariaLabel="Khóa cấp 2" />}
-
-      <div
-        className={vam.wrap}
-        style={wrapperStyle}
-        onClick={() => setActiveTab('c3')}
-      >
-        <p className="text_1" style={{color: 'white'}}>Các khóa học dành cho học sinh Trung học phổ thông</p>
-      </div>
-      {activeTab === 'c3' && <Course data={courseData.c3} ariaLabel="Khóa cấp 3" />}
-    </div>
+    <FadeIn direction="up" duration={0.8} className={vam.container}>
+      {tabs.map((tab) => {
+        const isActive = activeTab === tab.id;
+        return (
+          <div key={tab.id}>
+            <motion.div
+              className={vam.wrap}
+              style={{
+                ...wrapperStyle,
+                boxShadow: isActive
+                  ? '0 8px 24px rgba(21, 101, 192, 0.4)'
+                  : '0 2px 8px rgba(0, 0, 0, 0.08)',
+              }}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={() => setActiveTab(isActive ? '' : tab.id)}
+            >
+              <p className="text_1" style={{ color: 'white', margin: 0, fontSize: 'clamp(0.95rem, 2.8vw, 1.15rem)', lineHeight: 1.35 }}>
+                {tab.title}
+              </p>
+              <motion.span
+                animate={{ rotate: isActive ? 180 : 0 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '0.9rem',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  marginLeft: 12,
+                }}
+              >
+                ▼
+              </motion.span>
+            </motion.div>
+            <AnimatePresence>
+              {isActive && <Course data={tab.data} ariaLabel={tab.label} />}
+            </AnimatePresence>
+          </div>
+        );
+      })}
+    </FadeIn>
   );
 }
+
 const courseData = {
   c1: [
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1gLQ8C7QOEQ5K6KTUM99GHuSk5rvVayxb', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1rW2XZGexqU8aGjhOse8wIgtnThRVhLYC', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1p18Lym3yPUFZM0PAOE9PJM7geTeODwry', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1ldCKpkew2M0NmY3OwLC3RR2Vn8yGpiS8', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/179qQL2x4sZae5Amzkfdx6GKIVOyjPwU_', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' }
+    { imgSrc: '/images/courses/course-c1-1.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' },
+    { imgSrc: '/images/courses/course-c1-2.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' },
+    { imgSrc: '/images/courses/course-c1-3.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' },
+    { imgSrc: '/images/courses/course-c1-4.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' },
+    { imgSrc: '/images/courses/course-c1-5.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-1/' }
   ],
   c2: [
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1RWbPuSMeevVgxltvEif4YXLQssq-9YOz', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-2/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/170p12bklzSnLsQQpORxF4wdDxrieMDrB', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-2/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1lyZXUWQmMD7i9RNc0am6GMxJBaQQUfG8', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-2/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/14M_wQ6_fj42rePCZ_H8apwYggHKFVTKV', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-2/' }
+    { imgSrc: '/images/courses/course-c2-1.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-2/' },
+    { imgSrc: '/images/courses/course-c2-2.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-2/' },
+    { imgSrc: '/images/courses/course-c2-3.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-2/' },
+    { imgSrc: '/images/courses/course-c2-4.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-2/' }
   ],
   c3: [
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1yap51H3RomM_OaKoGGo0Xe4RfOWVvwYR', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/10VjhFwyvTGeEig48_lHRPh7iqyRmb51y', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1iaGSYbjcIWNt8D2Ld94LnJVRnzVVL43D', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/11BmYqWHy_E7HAvEkVW10f8ayBwa_Rtp-', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/1p3IgW6YGrLcOmqBS0oVtD9CWJG6SUI8E', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
-    { imgSrc: 'https://lh3.googleusercontent.com/d/10cdabSyfLF8yuTwFuK_oKaLCMp2Tf7Rb', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' }
+    { imgSrc: '/images/courses/course-c3-1.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
+    { imgSrc: '/images/courses/course-c3-2.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
+    { imgSrc: '/images/courses/course-c3-3.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
+    { imgSrc: '/images/courses/course-c3-4.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
+    { imgSrc: '/images/courses/course-c3-5.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' },
+    { imgSrc: '/images/courses/course-c3-6.png', link: 'https://s4h.edu.vn/hoc-lap-trinh-cho-hoc-sinh-cap-3/' }
   ]
-}
+};

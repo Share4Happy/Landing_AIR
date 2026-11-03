@@ -1,5 +1,5 @@
-.bg{
-  background-image: url(https://lh3.googleusercontent.com/d/124CCFp5Ths4Kc3todjGuHNV-frMbqJDc);
+.bg {
+  background-image: url(/images/kn6cs/kn6cs-illustration.png);
   background-position: center;
   background-size: cover;
   width: 70%;
@@ -7,12 +7,23 @@
   aspect-ratio: 2.7/2.2;
 }
 
-.kn6cs{
+.kn6cs {
   background-color: var(--main);
 }
 
-.wrap{
+.wrap {
   padding: 80px 0;
   width: 80%;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    width: 92%;
+    padding: 40px 0;
+  }
+
+  .bg {
+    width: 95%;
+  }
 }

@@ -1,21 +1,5 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
-
-const StudentCourseDetail = dynamic(
-    () => import('./main')
-        .catch(err => {
-            console.error("Failed to load StudentCourseDetail component:", err);
-            return () => <div>Không thể tải được component chi tiết. Vui lòng kiểm tra console log.</div>;
-        }), 
-    { 
-        ssr: false, 
-        loading: () => (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-                <p>Đang tải dữ liệu chi tiết...</p>
-            </div>
-        )
-    }
-);
+import StudentCourseDetail from './main';
 
 async function getStudentCourseData(id) {
     try {
@@ -36,9 +20,9 @@ async function getStudentCourseData(id) {
 }
 
 export default async function StudentDetailPage({ params }) {
-    const { id } = params;
+    const { id } = await params;
     const data = await getStudentCourseData(id);
-    
+
     if (!data) {
         return (
             <main style={{ padding: '40px', textAlign: 'center' }}>

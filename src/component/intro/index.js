@@ -1,19 +1,16 @@
-'use client'
-
+'use client';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import vam from './index.module.css';
-import Grid from '@mui/material/Grid';
-import { useMediaQuery } from '@mui/material';
+import { FadeIn } from '@/component/motion';
 
 export default function Intro() {
-  const isMobile = useMediaQuery('(max-width:600px)');
-
   return (
     <div className={vam.intro}>
-      <Grid container spacing={1} sx={{ width: '80%' }}>
-        <Grid item md={6} sm={12}>
-          <div style={{ padding: '50px 0' }}>
-            <h1 className="text_1" style={{ paddingBottom: '16px', textAlign: isMobile ? 'center' : 'start' }}>
+      <div className={vam.container}>
+        <FadeIn direction="right" duration={0.8} className={vam.textCol}>
+          <div style={{ padding: '30px 0' }}>
+            <h1 className={`${vam.title} text_1`}>
               BA MẸ ĐÃ BIẾT GÌ <br />
               VỀ NGÀNH ROBOTIC CHƯA?
             </h1>
@@ -27,12 +24,16 @@ export default function Intro() {
               vận chuyển, y tế,...
             </p>
           </div>
-        </Grid>
-        <Grid item md={6} sm={12} sx={{ width: '100%' }}>
-          <div className={vam.img}>
+        </FadeIn>
+        <FadeIn direction="left" duration={0.8} delay={0.2} className={vam.imgCol}>
+          <motion.div
+            className={vam.img}
+            whileHover={{ scale: 1.025 }}
+            transition={{ duration: 0.3 }}
+          >
             <Image
               className={vam.intro1}
-              src="https://lh3.googleusercontent.com/d/1bM-I0fm2fmkyWkIJbYFVxn2QeEpI4Xfl"
+              src="/images/intro/intro-robot-1.png"
               alt="Hình ảnh intro 1"
               fill
               sizes="100%"
@@ -40,15 +41,15 @@ export default function Intro() {
             />
             <Image
               className={vam.intro2}
-              src="https://lh3.googleusercontent.com/d/17UTxAtJ0mjmKy1YBma91X17mp_y45xOL"
+              src="/images/intro/intro-robot-2.jpg"
               alt="Hình ảnh intro 2"
               fill
               sizes="100%"
               loading="lazy"
             />
-          </div>
-        </Grid>
-      </Grid>
+          </motion.div>
+        </FadeIn>
+      </div>
     </div>
   );
 }

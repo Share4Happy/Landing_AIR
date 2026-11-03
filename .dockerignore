@@ -1,0 +1,22 @@
+# Node & Package Managers
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js Build Outputs & Cache
+.next
+out
+
+# Git & IDEs
+.git
+.gitignore
+.vscode
+.idea
+
+# Temporary scripts & local environment
+.env*.local
+scripts/
+*.md
+

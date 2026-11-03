@@ -1,0 +1,18 @@
+services:
+  landing-air:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: airobotic-landing
+    restart: unless-stopped
+    # Cổng 4545 dành cho Nginx Proxy chuyển tiếp (chỉ lắng nghe nội bộ 127.0.0.1, an toàn tuyệt đối)
+    ports:
+      - "127.0.0.1:${HOST_PORT:-4545}:4545"
+    env_file:
+      - .env
+    environment:
+      - PORT=4545
+      - HOSTNAME=0.0.0.0
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+
