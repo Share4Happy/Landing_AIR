@@ -5,9 +5,9 @@ services:
       dockerfile: Dockerfile
     container_name: airobotic-landing
     restart: unless-stopped
-    # Cổng 4545 dành cho Nginx Proxy chuyển tiếp (chỉ lắng nghe nội bộ 127.0.0.1, an toàn tuyệt đối)
+    # Mở cổng 4545 ra ngoài để Nginx Proxy / mạng ngoài có thể kết nối (0.0.0.0:4545)
     ports:
-      - "127.0.0.1:${HOST_PORT:-4545}:4545"
+      - "${HOST_PORT:-4545}:4545"
     env_file:
       - .env
     environment:
